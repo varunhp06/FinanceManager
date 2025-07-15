@@ -1,0 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime&display=swap");
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    @keyframes gentleFlipLeft {
+        0% { transform: rotateY(-5deg); opacity: 0.5; }
+        100% { transform: rotateY(0); opacity: 1; }
+    }
+
+    @keyframes gentleFlipRight {
+        0% { transform: rotateY(5deg); opacity: 0.5; }
+        100% { transform: rotateY(0); opacity: 1; }
+    }
+
+    .animate-gentle-flip-left {
+        animation: gentleFlipLeft 0.6s ease;
+    }
+
+    .animate-gentle-flip-right {
+        animation: gentleFlipRight 0.6s ease;
+    }
+}
+
+
+body {
+}
