@@ -24,8 +24,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
-
-    // Define public endpoints that don't require JWT validation
     private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
             "/authenticate",
             "/api/user/register"
@@ -35,8 +33,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String requestPath = request.getRequestURI();
-
-        // Skip JWT processing for public endpoints
         if (isPublicEndpoint(requestPath)) {
             filterChain.doFilter(request, response);
             return;
@@ -51,7 +47,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtil.extractUsername(token);
             } catch (Exception e) {
-                // Token is invalid/expired - let it pass through, Spring Security will handle it
                 logger.warn("JWT token processing failed: " + e.getMessage());
             }
         }

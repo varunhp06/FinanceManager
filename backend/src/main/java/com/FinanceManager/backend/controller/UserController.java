@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
         String username = authentication.getName();
-        User user = userService.findByUsername(username); // you must have this service method
+        User user = userService.findByUsername(username);
         return ResponseEntity.ok(new UserResponse(user.getId(), user.getUsername()));
     }
 

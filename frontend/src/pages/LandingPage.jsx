@@ -6,7 +6,6 @@ const LandingPage = () => {
 
     return (
         <div className="min-h-screen bg-stone-50 flex items-center justify-center p-6 relative overflow-hidden">
-            {/* Background texture */}
             <div
                 className="absolute inset-0 opacity-5 pointer-events-none"
                 style={{
@@ -14,7 +13,6 @@ const LandingPage = () => {
                 }}
             />
 
-            {/* Landing content box */}
             <div className="bg-white/80 border border-stone-300 w-full max-w-lg p-10 relative shadow-sm text-center">
                 <div className="absolute top-0 left-8 -mt-3 bg-stone-50 px-4 text-stone-700 font-light text-sm">
                     finance manager
@@ -27,7 +25,6 @@ const LandingPage = () => {
                     expenses. loans. debt.
                 </p>
 
-                {/* CTA buttons */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <button
                         onClick={() => navigate("/login")}
@@ -42,8 +39,6 @@ const LandingPage = () => {
                         register
                     </button>
                 </div>
-
-                {/* Footer */}
                 <div className="mt-6 text-xs text-stone-400 font-light italic">
                     as simple as it gets.
                 </div>

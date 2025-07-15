@@ -30,7 +30,6 @@ const LoginPage = () => {
 
   return (
       <div className="min-h-screen bg-stone-50 flex items-center justify-center p-6 relative">
-        {/* Subtle background texture */}
         <div
             className="absolute inset-0 opacity-5"
             style={{
@@ -38,13 +37,11 @@ const LoginPage = () => {
             }}
         ></div>
 
-        {/* Login form */}
         <div className="bg-white/80 border border-stone-300 w-full max-w-md p-8 relative shadow-sm">
           <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
             login
           </div>
 
-          {/* Form content */}
           <div className="space-y-6 mt-4">
             <div>
               <label className="block text-stone-700 font-light mb-2">
@@ -95,7 +92,6 @@ const LoginPage = () => {
             </button>
           </div>
 
-          {/* Footer */}
           <div className="mt-8 text-center">
             <div className="w-full h-px bg-stone-300 opacity-50 mb-4"></div>
             <p className="text-stone-600 font-light text-sm">

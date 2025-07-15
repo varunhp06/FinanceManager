@@ -24,7 +24,6 @@ public class AnalyticsController {
             String insights = analyticsService.getExpenseInsights(userId);
             return ResponseEntity.ok(insights);
         } catch (IOException e) {
-            e.printStackTrace();
             return ResponseEntity.status(500).body("Analysis failed");
         }
     }

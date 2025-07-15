@@ -52,10 +52,7 @@ const DashboardPage = () => {
             </h2>
             <div className="w-32 h-px bg-stone-400 mx-auto opacity-50"></div>
           </div>
-          {/* Dashboard cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-
-            {/* Debt card */}
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
                 debt
@@ -72,8 +69,6 @@ const DashboardPage = () => {
                 open debt
               </button>
             </div>
-
-            {/* Expenses card */}
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
                 expenses
@@ -90,8 +85,6 @@ const DashboardPage = () => {
                 open expenses
               </button>
             </div>
-
-            {/* Loans card */}
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
                 loans
@@ -110,8 +103,6 @@ const DashboardPage = () => {
             </div>
 
           </div>
-
-          {/* Overview section */}
           <div className="bg-white/100 border border-stone-300 p-8 relative shadow-sm">
             <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
               overview

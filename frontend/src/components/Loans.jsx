@@ -66,7 +66,6 @@ const Loans = () => {
         (a, b) => new Date(b.loanDate) - new Date(a.loanDate)
     );
 
-    // Filter by borrower name (case-insensitive)
     const filteredLoans = sortedLoans.filter((loan) =>
         loan.borrower.toLowerCase().includes(searchTerm.toLowerCase())
     );
