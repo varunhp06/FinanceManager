@@ -42,16 +42,20 @@ const DashboardPage = () => {
   }, []);
 
   return (
-      <div className="min-h-screen bg-stone-50 relative">
+      <div className="min-h-screen bg-stone-50 relative" data-test="dashboard-page">
         <Navbar />
 
         <div className="max-w-8xl mx-auto p-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl text-stone-800 font-light tracking-wider mb-4">
+            <h2
+                data-test="dashboard-welcome-heading"
+                className="text-4xl text-stone-800 font-light tracking-wider mb-4"
+            >
               welcome
             </h2>
             <div className="w-32 h-px bg-stone-400 mx-auto opacity-50"></div>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
@@ -63,12 +67,14 @@ const DashboardPage = () => {
                 </p>
               </div>
               <button
+                  data-test="debt-button"
                   onClick={() => navigate("/debts")}
                   className="w-full bg-stone-800 text-stone-50 py-3 text-sm font-light tracking-wide hover:bg-stone-700 transition-colors duration-200"
               >
                 open debt
               </button>
             </div>
+
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
                 expenses
@@ -79,12 +85,14 @@ const DashboardPage = () => {
                 </p>
               </div>
               <button
+                  data-test="expenses-button"
                   onClick={() => navigate("/expenses")}
                   className="w-full bg-stone-800 text-stone-50 py-3 text-sm font-light tracking-wide hover:bg-stone-700 transition-colors duration-200"
               >
                 open expenses
               </button>
             </div>
+
             <div className="bg-white/80 border border-stone-300 p-8 relative shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
                 loans
@@ -95,31 +103,41 @@ const DashboardPage = () => {
                 </p>
               </div>
               <button
+                  data-test="loans-button"
                   onClick={() => navigate("/loans")}
                   className="w-full bg-stone-800 text-stone-50 py-3 text-sm font-light tracking-wide hover:bg-stone-700 transition-colors duration-200"
               >
                 open loans
               </button>
             </div>
-
           </div>
-          <div className="bg-white/100 border border-stone-300 p-8 relative shadow-sm">
+
+          <div
+              className="bg-white/100 border border-stone-300 p-8 relative shadow-sm"
+              data-test="dashboard-overview"
+          >
             <div className="absolute top-0 left-6 -mt-3 bg-stone-50 px-3 text-stone-700 font-light text-sm">
               overview
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-3xl font-mono text-stone-800 mb-2">{totalEntries}</div>
+                <div data-test="total-entries" className="text-3xl font-mono text-stone-800 mb-2">
+                  {totalEntries}
+                </div>
                 <div className="text-stone-600 font-light">total expense entries</div>
               </div>
 
               <div>
-                <div className="text-3xl font-mono text-stone-800 mb-2">₹{totalAmount.toFixed(2)}</div>
+                <div data-test="total-amount" className="text-3xl font-mono text-stone-800 mb-2">
+                  ₹{totalAmount.toFixed(2)}
+                </div>
                 <div className="text-stone-600 font-light">total amount spent</div>
               </div>
+
               <div className="flex items-center justify-center">
                 <button
+                    data-test="analytics-link"
                     onClick={() => navigate("/analytics")}
                     className="text-stone-500 hover:text-stone-800 text-sm font-light tracking-wide underline underline-offset-4 decoration-dotted transition-all duration-150"
                 >
@@ -128,10 +146,12 @@ const DashboardPage = () => {
               </div>
             </div>
 
-
             {totalEntries === 0 && (
                 <div className="mt-8 text-center">
-                  <p className="text-stone-500 font-light text-sm italic">
+                  <p
+                      data-test="empty-state-message"
+                      className="text-stone-500 font-light text-sm italic"
+                  >
                     statistics will appear once you start recording expenses
                   </p>
                 </div>
