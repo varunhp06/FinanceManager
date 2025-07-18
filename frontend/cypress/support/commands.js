@@ -1,25 +1,22 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", (userId = "test-user-123") => {
+    cy.intercept("POST", "/authenticate", {
+        statusCode: 200,
+        body: "fake-jwt-token",
+    }).as("postAuthenticate");
+
+    cy.intercept("GET", "/api/user/me", {
+        statusCode: 200,
+        body: { id: userId },
+    }).as("getUserInfo");
+
+    cy.visit("/login");
+
+    cy.get('[data-test="login-username"]').type("testuser");
+    cy.get('[data-test="login-password"]').type("password123");
+
+    cy.get('[data-test="login-button"]').click();
+
+    cy.wait(["@postAuthenticate", "@getUserInfo"]);
+
+    cy.url().should("include", "/dashboard");
+});
