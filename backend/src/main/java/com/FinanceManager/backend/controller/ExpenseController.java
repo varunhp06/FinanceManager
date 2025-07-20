@@ -29,10 +29,15 @@ public class ExpenseController {
         return ResponseEntity.ok(saved);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Expense> updateExpense(@PathVariable UUID id, @RequestBody Expense expenseDetails) {
+        Expense updatedExpense = expenseService.updateExpense(id, expenseDetails);
+        return ResponseEntity.ok(updatedExpense);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         expenseService.deleteExpense(id);
         return ResponseEntity.noContent().build();
     }
 }
-

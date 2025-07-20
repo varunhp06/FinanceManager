@@ -23,9 +23,15 @@ public class DebtController {
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<Debt> createDebt(@PathVariable UUID userId,
-                                                 @RequestBody Debt debt) {
+                                           @RequestBody Debt debt) {
         Debt saved = debtService.createDebt(userId, debt);
         return ResponseEntity.ok(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Debt> updateDebt(@PathVariable UUID id, @RequestBody Debt debtDetails) {
+        Debt updatedDebt = debtService.updateDebt(id, debtDetails);
+        return ResponseEntity.ok(updatedDebt);
     }
 
     @DeleteMapping("/{id}")
@@ -34,4 +40,3 @@ public class DebtController {
         return ResponseEntity.noContent().build();
     }
 }
-

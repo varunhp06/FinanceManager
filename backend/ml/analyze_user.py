@@ -11,7 +11,6 @@ class CustomJSONEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
-# Read and parse stdin safely
 input_json = sys.stdin.read()
 try:
     data = json.loads(input_json)
@@ -34,9 +33,8 @@ if df.empty:
     print(json.dumps({"message": "No expenses found"}))
     sys.exit()
 
-df['expense_date'] = pd.to_datetime(df['expense_date'], errors='coerce')  # removed deprecated arg
+df['expense_date'] = pd.to_datetime(df['expense_date'], errors='coerce')
 
-# Determine label (Saver / Spender / Balanced)
 monthly_avg = df.groupby('user_id')['amount'].mean()
 essentials = ['food', 'utilities', 'health']
 ess_ratio = df[df['category'].isin(essentials)].groupby('user_id')['amount'].sum() / df.groupby('user_id')['amount'].sum()
@@ -48,7 +46,6 @@ if monthly_avg[user_id] < 10000 and ess_ratio[user_id] > 0.7:
 elif monthly_avg[user_id] > 20000 and ess_ratio[user_id] < 0.5:
     user_label = "Spender"
 
-# Spending Trend
 df['month'] = df['expense_date'].dt.to_period('M')
 monthly = df.groupby(['user_id', 'month'])['amount'].sum().reset_index()
 user_data = monthly[monthly['user_id'] == user_id]
@@ -63,33 +60,26 @@ elif slope < 0:
 else:
     trend = "Your expenses are stable."
 
-# Anomaly Detection
 clf = IsolationForest(random_state=42)
 df['is_anomaly'] = clf.fit_predict(df[['amount']]) == -1
-# Only include description if it's present
 anomaly_cols = ['expense_date', 'amount', 'category']
 if 'description' in df.columns:
     anomaly_cols.append('description')
 
 anomalies = df[df['is_anomaly']][anomaly_cols].to_dict(orient='records')
 
-# Top category (optional but useful)
 top_category = df.groupby('category')['amount'].sum().idxmax()
 
-# Suggestions
 suggestions = []
 
-# High discretionary category alert
 discretionary_categories = ['entertainment', 'gifts', 'miscellaneous', 'subscriptions', 'items']
 if top_category in discretionary_categories:
     suggestions.append(f"You seem to spend a lot on {top_category}. Consider setting a monthly limit for this category.")
 
-# Essentials vs Non-essentials ratio
 non_essential_ratio = 1 - ess_ratio[user_id]
 if non_essential_ratio > 0.5:
     suggestions.append("Over half of your spending goes to non-essentials. Consider prioritizing savings or reducing discretionary purchases.")
 
-# Payment method usage
 if 'pay_method' in df.columns and df['pay_method'].notnull().any():
     pay_method_ratio = df['pay_method'].value_counts(normalize=True)
     if pay_method_ratio.get('cash', 0) > 0.6:
@@ -97,27 +87,21 @@ if 'pay_method' in df.columns and df['pay_method'].notnull().any():
     elif pay_method_ratio.get('upi', 0) > 0.7:
         suggestions.append("You're doing well using UPI — it's easier to track and manage compared to cash.")
 
-# Anomaly insight
 if len(anomalies) > 2:
     suggestions.append(f"We noticed {len(anomalies)} irregular transactions. Review these to ensure they were intentional.")
 
-# Frequent small purchases
 daily_counts = df.groupby('expense_date').size()
 if (daily_counts > 3).sum() > 5:
     suggestions.append("You're making frequent small purchases. Try combining or planning ahead to reduce impulse buys.")
 
-# Positive feedback
 if user_label == "Saver" and slope <= 0:
     suggestions.append("Excellent financial behavior! You're spending wisely and consistently.")
 elif user_label == "Balanced" and slope <= 0:
     suggestions.append("Great job maintaining a stable budget across categories.")
 
-# Fallback if no suggestions
 if not suggestions:
     suggestions.append("You're doing well! Continue tracking and refining your spending habits.")
 
-
-# Final Result
 result = {
     "userId": user_id,
     "topCategory": top_category,

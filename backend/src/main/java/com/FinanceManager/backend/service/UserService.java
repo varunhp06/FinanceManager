@@ -3,6 +3,7 @@ package com.FinanceManager.backend.service;
 import com.FinanceManager.backend.entity.RegisterUserRequest;
 import com.FinanceManager.backend.entity.User;
 import com.FinanceManager.backend.entity.UserResponse;
+import com.FinanceManager.backend.error.UserAlreadyExistsException;
 import com.FinanceManager.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +19,7 @@ public class UserService {
 
     public UserResponse registerUser(RegisterUserRequest registerUserRequest){
         if (userRepository.findByUsername(registerUserRequest.getUsername()).isPresent()){
-            throw new RuntimeException("User Already Exists");
+            throw new UserAlreadyExistsException("User Already Exists");
         }
         User user = new User();
         user.setUsername(registerUserRequest.getUsername());

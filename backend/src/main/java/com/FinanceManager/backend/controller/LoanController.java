@@ -23,9 +23,15 @@ public class LoanController {
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<Loan> createLoan(@PathVariable UUID userId,
-                                                 @RequestBody Loan loan) {
+                                           @RequestBody Loan loan) {
         Loan saved = loanService.createLoan(userId, loan);
         return ResponseEntity.ok(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Loan> updateLoan(@PathVariable UUID id, @RequestBody Loan loanDetails) {
+        Loan updatedLoan = loanService.updateLoan(id, loanDetails);
+        return ResponseEntity.ok(updatedLoan);
     }
 
     @DeleteMapping("/{id}")
@@ -34,4 +40,3 @@ public class LoanController {
         return ResponseEntity.noContent().build();
     }
 }
-
